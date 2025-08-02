@@ -11,16 +11,18 @@ public:
         }
 
         s = "";
-        stack<char> rev;
+        // stack<char> rev;
+        // while (!chars.empty()) {
+        //     rev.push(chars.top());
+        //     chars.pop();
+        // }
+
         while (!chars.empty()) {
-            rev.push(chars.top());
+            s += chars.top();
             chars.pop();
         }
 
-        while (!rev.empty()) {
-            s += rev.top();
-            rev.pop();
-        }
+        reverse(s.begin(), s.end());
 
         return s;
 
