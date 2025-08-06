@@ -1,6 +1,5 @@
 SELECT 
     q2.person_name
-    -- q.cumm_weight
 FROM
     Queue q2
 JOIN (
