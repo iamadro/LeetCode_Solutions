@@ -1,29 +1,42 @@
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
-
-using namespace std;
-
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        unordered_map<int, int> counts;
-        int left = 0, max_fruits = 0;
+        int i = 0, j = -1, k = -1, a = -1, count = 0, maxCount = INT_MIN, n = fruits.size();
 
-        for (int right = 0; right < fruits.size(); ++right) {
-            counts[fruits[right]]++;
-
-            while (counts.size() > 2) {
-                counts[fruits[left]]--;
-                if (counts[fruits[left]] == 0) {
-                    counts.erase(fruits[left]);
+        while(i < n) {
+            if (j == -1) {
+                a = i;
+                j = i;
+                count++;
+            } else if (k == -1) {
+                if (fruits[i] != fruits[j]) k = i;
+                else j = i;
+                count++;
+            } else {
+                if (fruits[i] == fruits[j] || fruits[i] == fruits[k]) {
+                    if (fruits[i] == fruits[j]) j = i;
+                    else k = i;
+                    count++;
+                } else {
+                    if (j < k) {
+                        count -= j - a + 1;
+                        a = j + 1;
+                        j = i;
+                        count++;
+                    } else {
+                        count -= k - a + 1;
+                        a = k + 1;
+                        k = i;
+                        count++;
+                    }
                 }
-                left++;
             }
-
-            max_fruits = max(max_fruits, right - left + 1);
+            
+            maxCount = max(maxCount, count);
+            i++;
+            cout << i << j << k << a;
         }
 
-        return max_fruits;
+        return maxCount;
     }
 };
